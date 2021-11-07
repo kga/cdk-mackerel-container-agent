@@ -1,11 +1,11 @@
+import { Annotations } from "aws-cdk-lib";
 import {
   ContainerDefinition,
   ContainerDefinitionProps,
   ContainerImage,
   Secret,
-  Scope
-} from "@aws-cdk/aws-ecs";
-import { Construct } from "@aws-cdk/core";
+} from "aws-cdk-lib/aws-ecs";
+import { Construct } from "constructs";
 import { MackerelHostStatus, ServiceRole } from "./types";
 
 export interface Props extends Omit<ContainerDefinitionProps, "image"> {
@@ -92,7 +92,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
     });
 
     if (unsafeBareAPIKey !== undefined) {
-      this.node.addWarning(
+      Annotations.of(this).addWarning(
         "unsafeBareAPIKey is deprecated and will be removed at next major version. Please use apiKey: Secret"
       );
     }
