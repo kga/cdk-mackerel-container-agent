@@ -1,13 +1,13 @@
 import { SynthUtils } from "@aws-cdk/assert";
-import { Secret as SecretsManagerSecret } from "@aws-cdk/aws-secretsmanager";
+import { Secret as SecretsManagerSecret } from "aws-cdk-lib/aws-secretsmanager";
 import {
   ContainerImage,
   Ec2TaskDefinition,
   FargateTaskDefinition,
   NetworkMode,
   Secret
-} from "@aws-cdk/aws-ecs";
-import { Stack } from "@aws-cdk/core";
+} from "aws-cdk-lib/aws-ecs";
+import { Stack } from "aws-cdk-lib";
 import {
   MackerelContainerAgentDefinition,
   MackerelContainerAgentImage
@@ -43,10 +43,10 @@ describe("MackerelContainerAgentDefinition", () => {
             {
               taskDefinition,
               apiKey: Secret.fromSecretsManager(
-                SecretsManagerSecret.fromSecretArn(
+                SecretsManagerSecret.fromSecretPartialArn(
                   stack,
                   "ImportedSecret",
-                  "dummy-arn"
+                  "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
                 )
               ),
               unsafeBareAPIKey: "keep-my-secret"
@@ -68,10 +68,10 @@ describe("MackerelContainerAgentDefinition", () => {
             {
               taskDefinition,
               apiKey: Secret.fromSecretsManager(
-                SecretsManagerSecret.fromSecretArn(
+                SecretsManagerSecret.fromSecretPartialArn(
                   stack,
                   "ImportedSecret",
-                  "dummy-arn"
+                  "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
                 )
               )
             }
@@ -102,10 +102,10 @@ describe("MackerelContainerAgentDefinition", () => {
       const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
       new MackerelContainerAgentDefinition(stack, "mackerel-container-agent", {
         apiKey: Secret.fromSecretsManager(
-          SecretsManagerSecret.fromSecretArn(
+          SecretsManagerSecret.fromSecretPartialArn(
             stack,
             "ImportedSecret",
-            "dummy-arn"
+            "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
           )
         ),
         taskDefinition
@@ -135,10 +135,10 @@ describe("MackerelContainerAgentDefinition", () => {
         "mackerel-container-agent",
         {
           apiKey: Secret.fromSecretsManager(
-            SecretsManagerSecret.fromSecretArn(
+            SecretsManagerSecret.fromSecretPartialArn(
               stack,
               "ImportedSecret",
-              "dummy-arn"
+              "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
             )
           ),
           roles: [
@@ -159,10 +159,10 @@ describe("MackerelContainerAgentDefinition", () => {
         "mackerel-container-agent",
         {
           apiKey: Secret.fromSecretsManager(
-            SecretsManagerSecret.fromSecretArn(
+            SecretsManagerSecret.fromSecretPartialArn(
               stack,
               "ImportedSecret",
-              "dummy-arn"
+              "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
             )
           ),
           ignoreContainer: "(mackerel|xray)",
@@ -180,10 +180,10 @@ describe("MackerelContainerAgentDefinition", () => {
         "mackerel-container-agent",
         {
           apiKey: Secret.fromSecretsManager(
-            SecretsManagerSecret.fromSecretArn(
+            SecretsManagerSecret.fromSecretPartialArn(
               stack,
               "ImportedSecret",
-              "dummy-arn"
+              "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
             )
           ),
           hostStatusOnStart: MackerelHostStatus.Working,
@@ -201,10 +201,10 @@ describe("MackerelContainerAgentDefinition", () => {
         "mackerel-container-agent",
         {
           apiKey: Secret.fromSecretsManager(
-            SecretsManagerSecret.fromSecretArn(
+            SecretsManagerSecret.fromSecretPartialArn(
               stack,
               "ImportedSecret",
-              "dummy-arn"
+              "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
             )
           ),
           image: ContainerImage.fromRegistry(
@@ -224,10 +224,10 @@ describe("MackerelContainerAgentDefinition", () => {
         "mackerel-container-agent",
         {
           apiKey: Secret.fromSecretsManager(
-            SecretsManagerSecret.fromSecretArn(
+            SecretsManagerSecret.fromSecretPartialArn(
               stack,
               "ImportedSecret",
-              "dummy-arn"
+              "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
             )
           ),
           image: MackerelContainerAgentImage.Plugins,
@@ -249,10 +249,10 @@ describe("MackerelContainerAgentDefinition", () => {
         "mackerel-container-agent",
         {
           apiKey: Secret.fromSecretsManager(
-            SecretsManagerSecret.fromSecretArn(
+            SecretsManagerSecret.fromSecretPartialArn(
               stack,
               "ImportedSecret",
-              "dummy-arn"
+              "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
             )
           ),
           taskDefinition
@@ -276,10 +276,10 @@ describe("MackerelContainerAgentDefinition", () => {
         "mackerel-container-agent",
         {
           apiKey: Secret.fromSecretsManager(
-            SecretsManagerSecret.fromSecretArn(
+            SecretsManagerSecret.fromSecretPartialArn(
               stack,
               "ImportedSecret",
-              "dummy-arn"
+              "arn:aws:foo:ap-northeast-1:123456789012:dummy-arn/secret-name"
             )
           ),
           taskDefinition
